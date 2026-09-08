@@ -1,0 +1,47 @@
+id = "zerodice0/codex_usage"
+name = "Codex Usage"
+version = "0.1.0"
+plugin_api = 26
+author = "zerodice0"
+license = "MIT"
+icon = "chart-bar"
+description = "Check Codex quota usage and reset times in a keyboard-toggleable panel."
+tags = ["utility", "ai"]
+dependencies = ["python3", "codex"]
+
+[[setting]]
+key = "codex_path"
+type = "string"
+label_key = "settings.codex_path"
+description_key = "settings.codex_path.help"
+default = ""
+
+[[setting]]
+key = "refresh_seconds"
+type = "int"
+label_key = "settings.refresh_seconds"
+description_key = "settings.refresh_seconds.help"
+default = 300
+min = 60
+max = 3600
+
+[[setting]]
+key = "language"
+type = "select"
+label_key = "settings.language"
+default = "auto"
+options = [
+  { value = "auto", label_key = "language.auto" },
+  { value = "ko", label_key = "language.ko" },
+  { value = "en", label_key = "language.en" },
+]
+
+[[panel]]
+id = "panel"
+entry = "panel.luau"
+width = 460
+height = 400
+placement = "floating"
+position = "center"
+keyboard_focus = "exclusive"
+capture_keys = ["r"]

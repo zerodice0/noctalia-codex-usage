@@ -1,0 +1,10 @@
+{
+  "settings.codex_path": "Codex 실행 파일",
+  "settings.codex_path.help": "비워 두면 자동으로 찾습니다. 직접 지정할 때는 명령어가 아닌 실행 파일 경로를 입력하세요.",
+  "settings.refresh_seconds": "새로고침 간격 (초)",
+  "settings.refresh_seconds.help": "패널이 열려 있는 동안만 적용됩니다. 패널을 열 때도 사용량을 조회합니다.",
+  "settings.language": "표시 언어",
+  "language.auto": "시스템 언어",
+  "language.ko": "한국어",
+  "language.en": "English"
+}

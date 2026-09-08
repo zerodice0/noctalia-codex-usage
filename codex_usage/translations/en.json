@@ -1,0 +1,10 @@
+{
+  "settings.codex_path": "Codex executable",
+  "settings.codex_path.help": "Leave blank to auto-detect. Otherwise enter an executable path, not a shell command.",
+  "settings.refresh_seconds": "Refresh interval (seconds)",
+  "settings.refresh_seconds.help": "Only while the panel is open. Opening the panel also refreshes usage.",
+  "settings.language": "Language",
+  "language.auto": "System language",
+  "language.ko": "한국어",
+  "language.en": "English"
+}

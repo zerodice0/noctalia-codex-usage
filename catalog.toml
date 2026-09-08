@@ -1,0 +1,11 @@
+[[plugin]]
+id = "zerodice0/codex_usage"
+name = "Codex Usage"
+version = "0.1.0"
+plugin_api = 26
+author = "zerodice0"
+license = "MIT"
+icon = "chart-bar"
+description = "Check Codex quota usage and reset times in a keyboard-toggleable panel."
+tags = ["utility", "ai"]
+dependencies = ["python3", "codex"]
