@@ -2,7 +2,6 @@ local fmt = require("./format.luau")
 local text = fmt.text
 local opened = false
 local busy = false
-local expanded = false
 local errorCode = nil
 local lastAttempt = 0
 local codexPath = noctalia.getConfig("codex_path") or ""
@@ -42,15 +41,8 @@ local function render()
     if errorCode then
       table.insert(rows, ui.label({ text = text("Last successful reading · may be out of date", "마지막 조회 결과 · 최신 정보가 아닐 수 있습니다"), fontSize = 12, color = "on_surface_variant" }))
     end
-    table.insert(rows, quotaCard(snapshot.buckets[1]))
-    if #snapshot.buckets > 1 then
-      table.insert(rows, ui.button({
-        text = expanded and text("Hide other limits", "다른 한도 접기") or text("Show other limits", "다른 한도 보기"),
-        glyph = expanded and "chevron-up" or "chevron-down", variant = "ghost", controlSize = "sm", onClick = "onExpand",
-      }))
-      if expanded then
-        for i = 2, #snapshot.buckets do table.insert(rows, quotaCard(snapshot.buckets[i])) end
-      end
+    for _, bucket in ipairs(snapshot.buckets) do
+      table.insert(rows, quotaCard(bucket))
     end
   elseif not errorCode then
     table.insert(rows, ui.label({ text = text("Reading Codex usage…", "Codex 사용량을 불러오는 중…"), fontSize = 14, color = "on_surface_variant" }))
@@ -67,10 +59,7 @@ local function render()
       ui.button({ glyph = "close", tooltip = text("Close", "닫기"), onClick = "onCloseClicked", controlSize = "sm" }),
     }),
     ui.scroll({ flexGrow = 1, gap = 12 }, rows),
-    ui.row({ align = "center", gap = 8 }, {
-      ui.label({ text = footer, fontSize = 11, color = "on_surface_variant", flexGrow = 1 }),
-      ui.label({ text = text("Same shortcut to close", "같은 단축키로 닫기"), fontSize = 11, color = "on_surface_variant" }),
-    }),
+    ui.label({ text = footer, fontSize = 11, color = "on_surface_variant" }),
   }))
 end
 
@@ -135,7 +124,6 @@ function update()
 end
 
 function onRefresh() refresh() end
-function onExpand() expanded = not expanded; render() end
 function onCloseClicked() panel.close() end
 function onKey(chord, pressed)
   if chord == "r" and pressed then refresh() end
