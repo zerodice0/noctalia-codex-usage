@@ -10,10 +10,7 @@ if noctalia.state.get("snapshot_path") ~= codexPath then snapshot = nil end
 
 local function quotaCard(bucket)
   local children = {
-    ui.row({ align = "center", justify = "space_between", gap = 8 }, {
-      ui.label({ text = bucket.id == "codex" and "Codex" or bucket.name, fontSize = 16, fontWeight = "bold", flexGrow = 1 }),
-      ui.label({ text = string.upper(bucket.plan or ""), fontSize = 11, color = "on_surface_variant" }),
-    }),
+    ui.label({ text = bucket.id == "codex" and "Codex" or bucket.name, fontSize = 16, fontWeight = "bold" }),
   }
   for _, window in ipairs(bucket.windows) do
     local used = window.usedPercent
@@ -33,6 +30,15 @@ end
 
 local function render()
   if not opened then return end
+  local title = text("Codex Usage", "Codex 사용량")
+  if snapshot then
+    for _, bucket in ipairs(snapshot.buckets) do
+      if bucket.plan and bucket.plan ~= "" then
+        title = title .. " · " .. bucket.plan:gsub("^%l", string.upper)
+        break
+      end
+    end
+  end
   local rows = {}
   if errorCode then
     table.insert(rows, ui.label({ text = fmt.error(errorCode), fontSize = 13, maxLines = 4, color = "error" }))
@@ -54,7 +60,7 @@ local function render()
   panel.render(ui.column({ flexGrow = 1, gap = 14 }, {
     ui.row({ align = "center", gap = 8 }, {
       ui.glyph({ name = "chart-bar", size = 22, color = "primary" }),
-      ui.label({ text = text("Codex Usage", "Codex 사용량"), fontSize = 18, fontWeight = "bold", flexGrow = 1 }),
+      ui.label({ text = title, fontSize = 18, fontWeight = "bold", flexGrow = 1 }),
       ui.button({ glyph = "refresh", tooltip = text("Refresh (R)", "새로고침 (R)"), enabled = not busy, onClick = "onRefresh", controlSize = "sm" }),
       ui.button({ glyph = "close", tooltip = text("Close", "닫기"), onClick = "onCloseClicked", controlSize = "sm" }),
     }),
