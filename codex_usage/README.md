@@ -12,4 +12,8 @@ An in-flight request is bounded by a timeout. Settings include CLI path, languag
 Uses the official `account/rateLimits/read` app-server method; does not start model turns,
 read authentication files, or parse chat logs. API-key billing is not supported.
 
-See the repository root README for installation, troubleshooting and updates.
+See the [repository README](https://github.com/zerodice0/noctalia-codex-usage#readme)
+for installation, troubleshooting and updates. Keep the cloned repository after installation:
+the installer registers it as a local path source instead of copying the plugin files.
+
+Independent community plugin; not affiliated with OpenAI or Noctalia. [MIT license](https://github.com/zerodice0/noctalia-codex-usage/blob/main/LICENSE).
